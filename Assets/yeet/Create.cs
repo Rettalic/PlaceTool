@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-
 [ExecuteInEditMode]
 public class Create : MonoBehaviour, ICommandHandler
 {
@@ -19,6 +18,7 @@ public class Create : MonoBehaviour, ICommandHandler
     public bool xAxisBool;
     public bool yAxisBool;
     public bool zAxisBool;
+
 
     public float scrollSpeed = 0.1f;
 
@@ -88,8 +88,6 @@ public class Create : MonoBehaviour, ICommandHandler
                         Destroy(currentPlaceableObject);
                     }
 
-                    
-
                     currentPlaceableObject = Instantiate(placeableObjectPrefabs[i]);
                     currentPrefabIndex = i;
                     currentPlaceableObject.layer = 2;
@@ -99,6 +97,8 @@ public class Create : MonoBehaviour, ICommandHandler
             }
         }
     }
+
+    
 
     private bool PressedKeyOfCurrentPrefab(int i)
     {
@@ -152,6 +152,7 @@ public class Create : MonoBehaviour, ICommandHandler
     {
         if (Input.GetMouseButtonDown(0))
         {
+            currentPlaceableObject.layer = 0;
             currentPlaceableObject = null;
         }
     }
