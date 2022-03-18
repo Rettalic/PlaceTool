@@ -483,8 +483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3010c77e7fcdd424fa1a4f2ba8a6f827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usableTextures: []
+  usableTextures:
+  - {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10916, guid: 0000000000000000f000000000000000, type: 0}
   objectChange: {fileID: 0}
+  objectRenderer: {fileID: 0}
 --- !u!1 &1905917854
 GameObject:
   m_ObjectHideFlags: 0
