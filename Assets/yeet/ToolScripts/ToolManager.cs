@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+
 public enum ToolState
 {
-    CreateObject,
-    ChangeTexture,
-    MoveObject,
-    GroupObject
+    CreateObject  = 0,
+    ChangeTexture = 1,
+    ScaleObject   = 2,
+    MoveObject    = 3,
+    GroupObject   = 4
 }
 
 public class ToolManager : MonoBehaviour, ICommandHandler
@@ -14,6 +16,7 @@ public class ToolManager : MonoBehaviour, ICommandHandler
 
     public ChangeTextureScript changeTextureScript;
     public PlaceObjectScript placeObjectScript;
+    public ChangeScaleScript changeScaleScript;
 
     [Header("Move Object Variables")]
     private int temp;
@@ -41,6 +44,9 @@ public class ToolManager : MonoBehaviour, ICommandHandler
             case ToolState.ChangeTexture:
                 ChangeTextureTotal();
                 break;
+            case ToolState.ScaleObject:
+                ChangeScaleTotal();
+                break;
 
             case ToolState.MoveObject:
 
@@ -64,13 +70,43 @@ public class ToolManager : MonoBehaviour, ICommandHandler
 
     private void ChangeTextureTotal()
     {
+        //changeTextureScript.CheckObject();
         changeTextureScript.ChangeTexture();
-        changeTextureScript.CheckObject();
     }
     private void PlaceObjectTotal()
     {
         placeObjectScript.HandleNewObjectHotkey();
         placeObjectScript.ExecuteTasksPlaceObject();
+    }
+
+    private void ChangeScaleTotal()
+    {
+        //changeTextureScript.CheckObject();
+        changeScaleScript.ChangeScale();
+    }
+
+    public void ChangeThroughButton(int toolValue)
+    {
+        if(toolValue == 0)
+        {
+            toolState = ToolState.CreateObject;
+        }
+        if (toolValue == 1)
+        {
+            toolState = ToolState.ChangeTexture;
+        }
+        if (toolValue == 2)
+        {
+            toolState = ToolState.ScaleObject;
+        }
+        if (toolValue == 3)
+        {
+            toolState = ToolState.MoveObject;
+        }
+        if (toolValue == 4)
+        {
+            toolState = ToolState.GroupObject;
+        }
     }
 
     
