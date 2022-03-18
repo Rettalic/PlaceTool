@@ -14,7 +14,7 @@ public class ChangeTextureScript :MonoBehaviour
 
     public void ChangeTexture()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetMouseButtonDown(0))
         {
             CheckObject();
         }

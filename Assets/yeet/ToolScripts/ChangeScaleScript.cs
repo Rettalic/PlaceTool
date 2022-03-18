@@ -33,7 +33,7 @@ public class ChangeScaleScript : MonoBehaviour
 
     public void ChangeScale()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetMouseButtonDown(0))
         {
             CheckObject();
         }
