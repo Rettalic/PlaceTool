@@ -45,6 +45,4 @@ public class ChangeTextureScript :MonoBehaviour
             objectRenderer = objectChange.GetComponent<Renderer>();
         }
     }
-
-
 }

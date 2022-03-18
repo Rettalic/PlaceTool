@@ -18,17 +18,9 @@ public class ToolManager : MonoBehaviour, ICommandHandler
     public PlaceObjectScript placeObjectScript;
     public ChangeScaleScript changeScaleScript;
 
-    [Header("Move Object Variables")]
-    private int temp;
-
-    [Header("Group Object Variables")]
-    private int temp2;
-
-    
     public void Execute()
     {
     }
-
     public void Undo()
     {
     }
@@ -55,7 +47,6 @@ public class ToolManager : MonoBehaviour, ICommandHandler
             case ToolState.GroupObject:
 
                 break;
-
         }
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -107,9 +98,5 @@ public class ToolManager : MonoBehaviour, ICommandHandler
         {
             toolState = ToolState.GroupObject;
         }
-    }
-
-    
-
-    
+    }    
 }

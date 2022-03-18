@@ -18,6 +18,11 @@ public class ChangeScaleScript : MonoBehaviour
     private bool yAxisBool;
     private bool zAxisBool;
 
+    private void Start()
+    {
+        scaleObject = null;
+    }
+
 
     public void CheckObject()
     {
