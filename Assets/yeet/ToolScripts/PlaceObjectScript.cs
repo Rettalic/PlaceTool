@@ -83,7 +83,6 @@ public class PlaceObjectScript : MonoBehaviour
     private void MoveCurrentObjectToMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
         {
@@ -94,8 +93,6 @@ public class PlaceObjectScript : MonoBehaviour
 
     private void RotateFromMouseWheel()
     {
-        //Debug.Log(Input.mouseScrollDelta);
-
         if (xAxisBool) xMouseWheelRotation += Input.mouseScrollDelta.y;
         if (yAxisBool) yMouseWheelRotation += Input.mouseScrollDelta.y;
         if (zAxisBool) zMouseWheelRotation += Input.mouseScrollDelta.y;

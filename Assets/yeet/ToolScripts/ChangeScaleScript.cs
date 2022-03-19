@@ -23,7 +23,6 @@ public class ChangeScaleScript : MonoBehaviour
         scaleObject = null;
     }
 
-
     public void CheckObject()
     {
         RaycastHit hit;
@@ -31,7 +30,6 @@ public class ChangeScaleScript : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             scaleObject = hit.transform.gameObject;
-            Debug.Log(scaleObject.transform.localScale);
             scaleObject.transform.localScale = temp;
         }
     }
@@ -81,6 +79,13 @@ public class ChangeScaleScript : MonoBehaviour
             if (zAxisBool) zMouseWheelRotation += scrollSpeed;
         }
 
+        if (Input.GetKey(KeyCode.A))
+        {
+            xAxisBool = true;
+            yAxisBool = true;
+            zAxisBool = true;
+        }
+
         if (xMouseWheelRotation < 1)  xMouseWheelRotation = 1;
         if (yMouseWheelRotation < 1)  yMouseWheelRotation = 1;
         if (zMouseWheelRotation < 1)  zMouseWheelRotation = 1;
@@ -105,12 +110,7 @@ public class ChangeScaleScript : MonoBehaviour
         temp.z = zMouseWheelRotation;
 
         scaleObject.transform.localScale = temp; 
-
-
         temp = transform.localScale;
         transform.localScale = temp;
     }
-
-
-
 }

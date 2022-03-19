@@ -10,7 +10,18 @@ public class ChangeTextureScript :MonoBehaviour
     public Texture[] usableTextures;
     public GameObject objectChange;
     public Renderer objectRenderer;
-    public GameObject[] textureObjects; 
+    public GameObject[] textureObjects;
+
+    private void CheckObject()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            objectChange = hit.transform.gameObject;
+            objectRenderer = objectChange.GetComponent<Renderer>();
+        }
+    }
 
     public void ChangeTexture()
     {
@@ -32,17 +43,6 @@ public class ChangeTextureScript :MonoBehaviour
                     textureObjects[i].SetActive(true);
                 }
             }
-        }
-    }
-
-    public void CheckObject()
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
-        {
-            objectChange = hit.transform.gameObject;
-            objectRenderer = objectChange.GetComponent<Renderer>();
         }
     }
 }

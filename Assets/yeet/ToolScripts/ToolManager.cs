@@ -15,8 +15,8 @@ public class ToolManager : MonoBehaviour, ICommandHandler
     public ToolState toolState;
 
     public ChangeTextureScript changeTextureScript;
-    public PlaceObjectScript placeObjectScript;
-    public ChangeScaleScript changeScaleScript;
+    public PlaceObjectScript   placeObjectScript;
+    public ChangeScaleScript   changeScaleScript;
 
     public void Execute()
     {
@@ -26,6 +26,26 @@ public class ToolManager : MonoBehaviour, ICommandHandler
     }
     
     private void Update()
+    {
+        ChangeToolState();
+        HandleToolState();
+
+
+    }
+    
+    private void ChangeToolState()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            toolState = ToolState.CreateObject;
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            toolState = ToolState.ChangeTexture;
+        }
+    }
+
+    private void HandleToolState()
     {
         switch (toolState)
         {
@@ -48,20 +68,10 @@ public class ToolManager : MonoBehaviour, ICommandHandler
 
                 break;
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            toolState = ToolState.CreateObject;
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            toolState = ToolState.ChangeTexture;
-        }
     }
 
     private void ChangeTextureTotal()
     {
-        //changeTextureScript.CheckObject();
         changeTextureScript.ChangeTexture();
     }
     private void PlaceObjectTotal()
@@ -72,11 +82,10 @@ public class ToolManager : MonoBehaviour, ICommandHandler
 
     private void ChangeScaleTotal()
     {
-        //changeTextureScript.CheckObject();
         changeScaleScript.ChangeScale();
     }
 
-    public void ChangeThroughButton(int toolValue)
+    public void ChangeToolThroughButton(int toolValue)
     {
         if(toolValue == 0)
         {
