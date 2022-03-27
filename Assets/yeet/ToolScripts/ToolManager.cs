@@ -18,6 +18,8 @@ public class ToolManager : MonoBehaviour, ICommandHandler
     public PlaceObjectScript   placeObjectScript;
     public ChangeScaleScript   changeScaleScript;
 
+   // private List<> commandList = new List<>();
+
     public void Execute()
     {
     }
@@ -29,8 +31,6 @@ public class ToolManager : MonoBehaviour, ICommandHandler
     {
         ChangeToolState();
         HandleToolState();
-
-
     }
     
     private void ChangeToolState()
