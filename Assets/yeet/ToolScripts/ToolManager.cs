@@ -18,6 +18,8 @@ public class ToolManager : MonoBehaviour, ICommandHandler
     public PlaceObjectScript   placeObjectScript;
     public ChangeScaleScript   changeScaleScript;
 
+    public CommandManager commandManagerScript;
+
    // private List<> commandList = new List<>();
 
     public void Execute()
