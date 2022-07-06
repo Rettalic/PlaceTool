@@ -7,7 +7,7 @@ public class PlaceObjectScript : MonoBehaviour
     [Header("Create Object Variables")]
     [SerializeField]
     private GameObject[] placeableObjectPrefabs;
-    private GameObject currentPlaceableObject;
+    public GameObject currentPlaceableObject;
 
     private float xMouseWheelRotation;
     private float yMouseWheelRotation;
@@ -20,6 +20,8 @@ public class PlaceObjectScript : MonoBehaviour
     private bool yAxisBool;
     private bool zAxisBool;
 
+    public GameObject objectChange;
+
     public void ExecuteTasksPlaceObject()
     {
         if (currentPlaceableObject != null)
@@ -28,6 +30,7 @@ public class PlaceObjectScript : MonoBehaviour
             RotateFromMouseWheel();
             ReleaseIfClicked();
         }
+        DeleteObject();
         if (Input.GetKeyDown(KeyCode.X))
         {
             xAxisBool = true;
@@ -47,6 +50,25 @@ public class PlaceObjectScript : MonoBehaviour
             zAxisBool = true;
         }
         if (Input.GetKeyDown(KeyCode.R)) ResetRotation();
+    }
+
+    public void DeleteObject()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                objectChange = hit.transform.gameObject;
+                if (objectChange.layer == 6)
+                {
+                    objectChange.layer = 0;
+                    Destroy(objectChange);
+                }
+            }
+        }
+
     }
 
     public void HandleNewObjectHotkey()
@@ -124,7 +146,7 @@ public class PlaceObjectScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            currentPlaceableObject.layer = 0;
+            currentPlaceableObject.layer = 6;
             currentPlaceableObject = null;
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChangeTextureScript :MonoBehaviour
+public class ChangeTextureScript :MonoBehaviour, ICommandHandler
 {
 
     [Header("Change Texture Variables")]
@@ -11,6 +11,28 @@ public class ChangeTextureScript :MonoBehaviour
     public GameObject objectChange;
     public Renderer objectRenderer;
     public GameObject[] textureObjects;
+
+    private Material oldMaterial;
+    private Material newMaterial;
+    private GameObject objectToChangeMaterial;
+
+
+    public void Execute()
+    {
+        objectToChangeMaterial.GetComponent<Renderer>().material = newMaterial;
+    }
+
+    public void Undo()
+    {
+        objectToChangeMaterial.GetComponent<Renderer>().material = oldMaterial;
+    }
+
+    public ChangeTextureScript(Material _oldMaterial, Material _newMaterial, GameObject _objectToChangeMaterial)
+    {
+        this.oldMaterial = _oldMaterial;
+        this.newMaterial = _newMaterial;
+        this.objectToChangeMaterial = _objectToChangeMaterial;
+    }
 
     private void CheckObject()
     {
