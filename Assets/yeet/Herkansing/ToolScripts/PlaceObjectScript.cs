@@ -20,7 +20,7 @@ public class PlaceObjectScript : MonoBehaviour
     private bool yAxisBool;
     private bool zAxisBool;
 
-    public GameObject objectChange;
+    [SerializeField] GameObject objectChange;
 
     public void ExecuteTasksPlaceObject()
     {

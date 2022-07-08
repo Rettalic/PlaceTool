@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ChangeScaleScript : MonoBehaviour
 {
-
     public float scaleSpeed;
     public GameObject scaleObject;
+    public LayerMask layerMask;
 
     Vector3 temp;
     private float xMouseWheelRotation;
@@ -27,7 +27,7 @@ public class ChangeScaleScript : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, layerMask))
         {
             scaleObject = hit.transform.gameObject;
             scaleObject.transform.localScale = temp;
@@ -36,27 +36,19 @@ public class ChangeScaleScript : MonoBehaviour
 
     public void ChangeScale()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            CheckObject();
-        }
+        if (Input.GetMouseButtonDown(0))  CheckObject();
         if (Input.GetKeyDown(KeyCode.X))
-        {
-            xAxisBool = true;
+        {   xAxisBool = true;
             yAxisBool = false;
             zAxisBool = false;
         }
-
         if (Input.GetKeyDown(KeyCode.Y))
-        {
-            xAxisBool = false;
+        {   xAxisBool = false;
             yAxisBool = true;
             zAxisBool = false;
         }
-
         if (Input.GetKeyDown(KeyCode.Z))
-        {
-            xAxisBool = false;
+        {   xAxisBool = false;
             yAxisBool = false;
             zAxisBool = true;
         }
@@ -66,22 +58,19 @@ public class ChangeScaleScript : MonoBehaviour
         if (zAxisBool) zMouseWheelRotation += Input.mouseScrollDelta.y;
 
         if (Input.GetKey(KeyCode.Q))
-        {
-            if (xAxisBool) xMouseWheelRotation -= scrollSpeed;
+        {   if (xAxisBool) xMouseWheelRotation -= scrollSpeed;
             if (yAxisBool) yMouseWheelRotation -= scrollSpeed;
             if (zAxisBool) zMouseWheelRotation -= scrollSpeed;
         }
 
         if (Input.GetKey(KeyCode.E))
-        {
-            if (xAxisBool) xMouseWheelRotation += scrollSpeed;
+        {   if (xAxisBool) xMouseWheelRotation += scrollSpeed;
             if (yAxisBool) yMouseWheelRotation += scrollSpeed;
             if (zAxisBool) zMouseWheelRotation += scrollSpeed;
         }
 
         if (Input.GetKey(KeyCode.A))
-        {
-            xAxisBool = true;
+        {   xAxisBool = true;
             yAxisBool = true;
             zAxisBool = true;
         }
@@ -94,23 +83,22 @@ public class ChangeScaleScript : MonoBehaviour
         if (zMouseWheelRotation > 10) zMouseWheelRotation = 10;
 
         if (Input.GetKeyDown(KeyCode.R))
-        {
-            xMouseWheelRotation = 0;
+        {   xMouseWheelRotation = 0;
             zMouseWheelRotation = 0;
             yMouseWheelRotation = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            scaleObject = null;
-        }
+        if (Input.GetKeyDown(KeyCode.KeypadEnter)) scaleObject = null;
 
         temp.x = xMouseWheelRotation;
         temp.y = yMouseWheelRotation;
         temp.z = zMouseWheelRotation;
 
+        if(scaleObject != null)
+        {
         scaleObject.transform.localScale = temp; 
         temp = transform.localScale;
         transform.localScale = temp;
+        }
     }
 }

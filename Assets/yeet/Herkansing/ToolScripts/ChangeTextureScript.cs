@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChangeTextureScript :MonoBehaviour, ICommandHandler
+public class ChangeTextureScript :MonoBehaviour, ICommand
 {
 
     [Header("Change Texture Variables")]
-    public Texture[] usableTextures;
-    public GameObject objectChange;
-    public Renderer objectRenderer;
+    public Texture[]    usableTextures;
+    public GameObject   objectChange;
+    public Renderer     objectRenderer;
     public GameObject[] textureObjects;
 
     private Material oldMaterial;
