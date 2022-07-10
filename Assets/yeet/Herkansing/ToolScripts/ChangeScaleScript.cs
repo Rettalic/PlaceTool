@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeScaleScript : MonoBehaviour
 {
-    public float scaleSpeed;
+    public float      scaleSpeed;
     public GameObject scaleObject;
     public LayerMask layerMask;
 
@@ -75,9 +75,9 @@ public class ChangeScaleScript : MonoBehaviour
             zAxisBool = true;
         }
 
-        if (xMouseWheelRotation < 1)  xMouseWheelRotation = 1;
-        if (yMouseWheelRotation < 1)  yMouseWheelRotation = 1;
-        if (zMouseWheelRotation < 1)  zMouseWheelRotation = 1;
+        if (xMouseWheelRotation < 0.5f)  xMouseWheelRotation = 0.5f;
+        if (yMouseWheelRotation < 0.5f)  yMouseWheelRotation = 0.5f;
+        if (zMouseWheelRotation < 0.5f)  zMouseWheelRotation = 0.5f;
         if (xMouseWheelRotation > 10) xMouseWheelRotation = 10;
         if (yMouseWheelRotation > 10) yMouseWheelRotation = 10;
         if (zMouseWheelRotation > 10) zMouseWheelRotation = 10;

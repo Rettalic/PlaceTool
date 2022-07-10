@@ -7,7 +7,7 @@ public class ChangeTextureScript :MonoBehaviour, ICommand
 {
 
     [Header("Change Texture Variables")]
-    public Texture[]    usableTextures;
+    public Material[]   usableTextures;
     public GameObject   objectChange;
     public Renderer     objectRenderer;
     public GameObject[] textureObjects;
@@ -56,13 +56,13 @@ public class ChangeTextureScript :MonoBehaviour, ICommand
         {
             if (Input.GetKeyDown(KeyCode.Alpha0 + 1 + i))
             {
-                objectRenderer.material.mainTexture = usableTextures[i];
+                objectRenderer.material = usableTextures[i];
 
                 int t = 0;
                 for (t = 0; t < usableTextures.Length; t++)
                 { 
-                    textureObjects[t].SetActive(false);
-                    textureObjects[i].SetActive(true);
+                    textureObjects[t]?.SetActive(false);
+                    textureObjects[i]?.SetActive(true);
                 }
             }
         }

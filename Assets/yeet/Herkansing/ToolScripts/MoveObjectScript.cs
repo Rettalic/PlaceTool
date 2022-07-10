@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceObjectScript : MonoBehaviour, ICommand
+public class MoveObjectScript : MonoBehaviour
 {
     [Header("Create Object Variables")]
 
     [SerializeField] private GameObject[] placeableObjectPrefabs;
     [SerializeField] public GameObject currentPlaceableObject;
+
+    public bool isSelected;
 
     private float xMouseWheelRotation;
     private float yMouseWheelRotation;
@@ -19,18 +21,20 @@ public class PlaceObjectScript : MonoBehaviour, ICommand
     private bool xAxisBool;
     private bool yAxisBool;
     private bool zAxisBool;
+    public LayerMask layerMask;
 
     [SerializeField] GameObject objectChange;
 
-    public void ExecuteTasksPlaceObject()
+    public void ExecuteTasksMoveObject()
     {
+        SelectObject();
         if (currentPlaceableObject != null)
         {
             MoveCurrentObjectToMouse();
             RotateFromMouseWheel();
             ReleaseIfClicked();
         }
-        DeleteObject();
+        
         if (Input.GetKeyDown(KeyCode.X))
         {
             xAxisBool = true;
@@ -50,6 +54,7 @@ public class PlaceObjectScript : MonoBehaviour, ICommand
             zAxisBool = true;
         }
         if (Input.GetKeyDown(KeyCode.R)) ResetRotation();
+
     }
 
     public void DeleteObject()
@@ -72,26 +77,29 @@ public class PlaceObjectScript : MonoBehaviour, ICommand
 
     public void HandleNewObjectHotkey()
     {
-        for (int i = 0; i < placeableObjectPrefabs.Length; i++)
+        if (isSelected)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0 + 1 + i))
+            for (int i = 0; i < placeableObjectPrefabs.Length; i++)
             {
-                if (PressedKeyOfCurrentPrefab(i))
+                if (Input.GetMouseButtonDown(1))
                 {
-                    Destroy(currentPlaceableObject);
-                    currentPrefabIndex = -1;
-                }
-                else
-                {
-                    if (currentPlaceableObject != null)
+                    if (PressedKeyOfCurrentPrefab(i))
                     {
                         Destroy(currentPlaceableObject);
+                        currentPrefabIndex = -1;
                     }
-                    currentPlaceableObject = Instantiate(placeableObjectPrefabs[i]);
-                    currentPrefabIndex = i;
-                    currentPlaceableObject.layer = 2;
+                    else
+                    {
+                        if (currentPlaceableObject != null)
+                        {
+                            Destroy(currentPlaceableObject);
+                        }
+                        currentPlaceableObject = Instantiate(placeableObjectPrefabs[i]);
+                        currentPrefabIndex = i;
+                        currentPlaceableObject.layer = 2;
+                    }
+                    break;
                 }
-                break;
             }
         }
     }
@@ -109,6 +117,21 @@ public class PlaceObjectScript : MonoBehaviour, ICommand
         {
             currentPlaceableObject.transform.position = hitInfo.point;
             currentPlaceableObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
+        }
+    }
+
+    private void SelectObject()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, layerMask))
+            {
+                currentPlaceableObject = hit.transform.gameObject;
+                Destroy(hit.transform.gameObject);
+            }
+            isSelected = true;
         }
     }
 
@@ -147,14 +170,7 @@ public class PlaceObjectScript : MonoBehaviour, ICommand
         {
             currentPlaceableObject.layer = 6;
             currentPlaceableObject = null;
+            isSelected = false;
         }
-    }
-
-    public void Execute()
-    {
-    }
-
-    public void Undo()
-    {
     }
 }
